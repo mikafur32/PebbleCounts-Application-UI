@@ -62,8 +62,6 @@ def QuantBD(n=200, p=0.84, alpha=0.05):
 
     return p_l, p_u
 
-# %%
-
 # EXAMPLE USE
 
 QuantBD

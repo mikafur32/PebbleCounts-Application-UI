@@ -22,7 +22,7 @@ Copyright © 2021 Benjamin Purinton, University of Potsdam, Potsdam, Germany
 PebbleCounts-Application is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. PebbleCounts-Application is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
 
 
-## Description of scripts
+## Scripts
 
 You will need all of the _Python_ packages from PebbleCounts to run these scripts, so it's recommended that you first install these as described in [that manual](https://github.com/UP-RS-ESP/PebbleCounts/blob/master/docs/PebbleCounts_Manual.pdf). The scripts here are presented as is without guidelines for exact implementation since use cases may vary significantly. They are well commented and users are welcome to simply steal functions or for-loops that look useful to them. The following scripts can be found in the folder `scripts`:
 
@@ -37,12 +37,13 @@ You will need all of the _Python_ packages from PebbleCounts to run these script
 
 This is a collection of functions taken from the original _R_ code of [Eaton et al. (2019)](https://doi.org/10.5194/esurf-7-789-2019) and translated into _Python_. Below the function definitions is an example usage to calculate percentile uncertainties.
 
+
+**FUNCTIONS:**
+
 ```
 import numpy as np
 from scipy import interpolate as interp
 from scipy import stats
-
-# FUNCTIONS
 
 def p_c_fripp(n=100, p=0.84):
     """"calculates confidence interval under normal
@@ -98,11 +99,14 @@ def QuantBD(n=200, p=0.84, alpha=0.05):
     p_l, p_u = lu_approx[0]/n, lu_approx[1]/n
 
     return p_l, p_u
+```
 
-# EXAMPLE
+**EXAMPLE:**
 
-# your grain size distribution
-gsd = np.array([1, 5, 7, 2, 9, 7, 9, 1, 8, 1, 9, 6, 6])
+```
+# your grain size distribution, here drawn randomly from a log-normal distribution
+# with mu=1 and sigma=0.8
+gsd = np.random.lognormal(mean=1, sigma=0.8, size=1000)
 
 # number of measurement in the grain-size distribution
 n = len(gsd)
@@ -117,8 +121,10 @@ alpha = 0.05
 p_l, p_u = QuantBD(n, p, alpha)
 
 # get the grain size of interest at the 95% confidence about the size
-grain_size = np.percentile([subset], p*100)
+grain_size = np.percentile(gsd, p*100)
+grain_size_l = np.percentile(gsd, p_l*100)
+grain_size_u = np.percentile(gsd, p_u*100)
 
-# Eaton eq(3)
-        error = 0.5 * ((np.percentile(subset, p_u*100) - np.percentile(subset, p_l*100)) / np.percentile(subset, q_subset[g]*100))
+# calculate the percentage error after Eaton eq(3)
+error = 0.5 * ((grain_size_u - grain_size_l) / grain_size)
 ```
