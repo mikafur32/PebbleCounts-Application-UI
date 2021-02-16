@@ -47,7 +47,7 @@ skew = df["95_50"].values
 # we use log-spaced bins given the log-normal grain size distribution, but this could be
 # changed to linear
 bins = np.logspace(np.log10(skew.min()-0.0001), np.log10(skew.max()+0.0001), 6)
-labels = [1, 2, 3, 4, 5]
+labels = [1, 2, 3, 4, 5] 
 df["binned"] = pd.cut(df['skew'], bins=bins, labels=labels)
 
 # get the counts in each bin
