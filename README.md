@@ -1,6 +1,6 @@
 # PebbleCounts-Application
 
-This is a collection of _Python_ scripts implementing some of the methods outlined in an upcoming manuscript. In this manuscript we up-scale the use of the [PebbleCounts](https://github.com/UP-RS-ESP/PebbleCounts) algorithm to large photo-surveyed channel cross sections in high mountain rivers to count grain-size distributions. The percentile uncertainty estimation via binomial theory is taken from recent work by Brett Eaton, published [here](https://esurf.copernicus.org/articles/7/789/2019/esurf-7-789-2019.html) and available as _R_ code [here](https://github.com/bceaton/GSDtools). In this repository, the main _R_ function _QuantBD_ has simply been translated without modification into _Python_.
+This is a collection of _Python_ scripts implementing some of the methods outlined in ["Tracking downstream variability in large grain-size distributions in the south-central Andes"](https://doi.org/10.1029/2021JF006260). In this manuscript we up-scale the use of the [PebbleCounts](https://github.com/UP-RS-ESP/PebbleCounts) algorithm to large photo-surveyed channel cross sections in high mountain rivers to count grain-size distributions. The percentile uncertainty estimation via binomial theory is taken from recent work by Brett Eaton, published [here](https://esurf.copernicus.org/articles/7/789/2019/esurf-7-789-2019.html) and available as _R_ code [here](https://github.com/bceaton/GSDtools). In this repository, the main _R_ function _QuantBD_ has simply been translated without modification into _Python_.
 
 ## Citation
 
@@ -10,7 +10,7 @@ _Purinton, B. and Bookhagen, B.: Introducing PebbleCounts: a grain-sizing tool f
 
 _Eaton, B. C., Moore, R. D., and MacKenzie, L. G.: Percentile-based grain size distribution analysis tools (GSDtools) – estimating confidence limits and hypothesis tests for comparing two samples, Earth Surf. Dynam., 7, 789–806, [https://doi.org/10.5194/esurf-7-789-2019](https://doi.org/10.5194/esurf-7-789-2019), 2019._
 
-_Purinton, B. and Bookhagen, B.: Tracking downstream variability in large grain-size distributions in the south-central Andes, submitted._
+_Purinton, B. and Bookhagen, B.: Tracking downstream variability in large grain-size distributions in the south-central Andes, JGR Earth Surface, e2021JF006260, [https://doi.org/10.1029/2021JF006260](https://doi.org/10.1029/2021JF006260), 2021._
 
 
 ## License
