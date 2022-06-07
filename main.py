@@ -1,5 +1,6 @@
 import subprocess
 import os
+import cv2
 
 
 # print(len(next(os.walk('C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho'))[1]))
@@ -13,7 +14,7 @@ def yn(f, prompt, y_other, y_other_f):
     if inp == 'y':
         y_other_f(y_other)
 
-    return inp
+    return inp == 'y'
 
 
 '''
@@ -58,11 +59,19 @@ for i in range(start, len(next(os.walk('C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\L
         'python PebbleCounts.py -im C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho\\%d\\%d.tif -ortho y'
         % (i, i)
     )
-    yn(input, 'Redo %d? y/n ' % i,
-       'python PebbleCounts.py -im C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho\\%d\\%d.tif -ortho y'
-       % (i, i),
-       subprocess.call
-       )
+
+'''
+    image = cv2.imread('C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho\\%d\\%d_PebbleCounts_FIGURE.png'
+              % (i, i))
+    cv2.imshow('Figure', image)
+'''
+
+while yn(input, 'Redo %d? y/n ' % i,
+         'python PebbleCounts.py -im C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho\\%d\\%d.tif -ortho y'
+         % (i, i),
+         subprocess.call
+         ) == True:
+    pass
 
 '''
 EXAMPLE:
