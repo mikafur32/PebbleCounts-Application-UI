@@ -2,10 +2,6 @@ import subprocess
 import os
 import cv2
 
-
-# print(len(next(os.walk('C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho'))[1]))
-
-
 def yn(f, prompt, y_other, y_other_f):
     inp = f(prompt)
     while inp != 'y' and inp != 'n':
@@ -17,21 +13,16 @@ def yn(f, prompt, y_other, y_other_f):
     return inp == 'y'
 
 
-'''
+def count(file, i):
+    subprocess.call(
+        'python PebbleCounts.py -im %s\\%d\\%d.tif -ortho y'
+        % (file, i, i)
+    )
 
-subset = yn(input, 'Would you like to subset the image? y/n ', pass)
+    image = cv2.imread('%s\\%d\\%d_PebbleCounts_FIGURE.png'
+                       % (file, i, i))
+    #cv2.imshow('Figure', image)
 
-if subset == 'y':
-    # Enter the file location of 01_preprocess_survey_for_PebbleCounts.py
-    subprocess.call('cd ' + input('Enter the file location of 01_preprocess_survey_for_PebbleCounts: '))
-    # cd C:\\Users\Mikey\Desktop\Research\Pebblecount-working\PebbleCounts\scripts'
-    # Tile (subset) the image
-    subprocess.call('python 01_preprocess_survey_for_PebbleCounts.py')
-
-# Enter the file location of PebbleCounts.py
-subprocess.call('cd ' + input('Enter the file location of PebbleCounts.py: ').rstrip())
-# 'cd C:\\Users\Mikey\Desktop\Research\Pebblecount-working\PebbleCounts
-'''
 
 #####################################################################################################################
 '''
@@ -41,9 +32,6 @@ subprocess.call('cd ' + input('Enter the file location of PebbleCounts.py: ').rs
 file = input('Enter the folder location of the tiles: ')
 start = int(input('Which tile would you like to start on? '))
 
-# make sure to add '\' to every '\' so that the Python compiler doesn't think it's the beginning of an escape code
-# Example: 'C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho'
-
 
 # Naming convention for the tiles:
 # 1. Name each tile 1 through x
@@ -52,35 +40,13 @@ start = int(input('Which tile would you like to start on? '))
 # 1.tif goes into the folder 1
 # C:\  ...  \1\1.tif
 
-for i in range(start, len(next(os.walk('C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho'))[1])):
+for i in range(start, len(next(os.walk(file))[1])):
     print('Counting Pebbles on tile %d' % i)
+    count(file, i)
 
-    subprocess.call(
-        'python PebbleCounts.py -im C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho\\%d\\%d.tif -ortho y'
-        % (i, i)
-    )
-
-'''
-    image = cv2.imread('C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho\\%d\\%d_PebbleCounts_FIGURE.png'
-              % (i, i))
-    cv2.imshow('Figure', image)
-'''
-
-while yn(input, 'Redo %d? y/n ' % i,
-         'python PebbleCounts.py -im C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho\\%d\\%d.tif -ortho y'
-         % (i, i),
-         subprocess.call
-         ) == True:
-    pass
-
-'''
-EXAMPLE:
-
-for i in range(start, len(next(os.walk('C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho'))[1])):
-    print(i)
-
-    subprocess.call(
-        'python PebbleCounts.py -im C:\\Users\\Mikey\\Desktop\\Clips\\LC1\\LC1Steeptiles_ortho\\%d\\%d.tif -ortho y' % (i, i)
-    )
-    
-'''
+    while yn(input, 'Redo %d? y/n ' % i,
+             'python PebbleCounts.py -im %s\\%d\\%d.tif -ortho y'
+             % (file, i, i),
+             subprocess.call
+             ) == True:
+        count(file, i)
